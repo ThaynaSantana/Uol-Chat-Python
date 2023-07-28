@@ -3,45 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World Python WEB</title>
-    <!-- SOQUET.IO -->
+    <title>CHAT PYTHON</title>
+    <!-- BOOTSTRAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js" integrity="sha512-fHY2UiQlipUq0dEabSM4s+phmn+bcxSYzXP4vAXItBvBHU7zAM/mkhCZjtBEIJexhOMzZbgFlPLuErlJF2b+0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- SOCKET.IO-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js" integrity="sha512-Z6C1p1NIexPj5MsVUunW4pg7uMX6/TT3CUVldmjXx2kpip1eZcrAnxIusDxyFIikyM9A61zOVNgvLr/TGudOQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- JQUERY -->
+    <!-- JQUERY-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <h1>Zap Chat</h1>
-    <div id="message-list">
-        <p>Nome: Olá tudo bem?</p>
-        <p>Nome2: Tudo!</p>
-    </div>
-
-    <input type="text" id="user" placeholder="user" required>
-    <input type="text" id="message" placeholder="message" required>
-    
-    <button id="btn">Enviar</button>
 
     <script type="text/javascript">
-       
+        $(document).ready(function() {
+            var socket = io("192.168.253.1:5000")
+            socket.on("connect", function() {
+                console.log("Conectado");
+            });
 
-        $(document).ready(function(){
-            // SOCKET CONNECT
-            var socket = io("localhost:5000");
-            socket.on("connect", function(){
-                console.log("usuario conectou");
-                
-            })
-            // SOCKET MESSAGE
-            socket.on("message", function(data){
-                console.log("Disparou uma mensagem!");
-                $("#message-list").append($("<p>").text(data));
-                
-            })
-            // BOTAO
-            $("#btn").on("click"), function(){
-                socket.send("Messagem enviada pelo tunel");
-            }   
+            socket.on("message", function(data) {
+                $("#lista_mensagens").append($('<p>').text(data));
+            });
+
+            $("#botao").on('click', function() {
+                socket.send($('#usuario').val() + ": " + $('#mensagem').val());
+                $('#mensagem').val('');
+            });
         })
     </script>
+
+    <h1>Chat Zap</h1>
+    <div id="lista_mensagens">
+
+    </div>
+    <input type="text" id="usuario" placeholder="Usuario" required>
+    <input type="text" id="mensagem" placeholder="Mensagem" required>
+    <button class="btn btn-success" id="botao">Enviar</button>
+
 </body>
 </html>

@@ -1,20 +1,16 @@
-from flask import Flask, render_template
-from flask_socketio import SocketIO, send
+from flask import Flask, render_template # estruturas para criar o site
+from flask_socketio import SocketIO, send # estruturas para criar o chat
 
-app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
+app = Flask(__name__) # cria o site
+socketio = SocketIO(app, cors_allowed_origins="*") # cria a conexão entre diferentes máquinas que estão no mesmo site
 
-# funcao de enviar mensagem
-@socketio.on("message")
-def manage_message(message):
-    send(message, broadcast=True)
+@socketio.on("message") # define que a função abaixo vai ser acionada quando o evento de "message" acontecer
+def gerenciar_mensagens(mensagem):
+    print(f"Mensagem: {mensagem}")
+    send(mensagem, broadcast=True) # envia a mensagem para todo mundo conectado no site
 
-# cria nossa 1°pagina primeira rota
-@app.route("/")
-def homepage():
-    return render_template("index.html")
-# roda nosso aplicativo
-#app.run(debug=True) # debug=True não preciso ficar rodando o site toda hora
-socketio.run(app, host="localhost")
+@app.route("/") # cria a página do site
+def home():
+    return render_template("index.html") # essa página vai carregar esse arquivo html que está aqui
 
-# websocket
+socketio.run(app, host='192.168.253.1') # define que o app vai rodar no seu servidor local, ou seja, na internet em que o seu computador tá conectado
