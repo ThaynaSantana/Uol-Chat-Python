@@ -13,4 +13,4 @@ def gerenciar_mensagens(mensagem):
 def home():
     return render_template("index.html") # essa página vai carregar esse arquivo html que está aqui
 
-socketio.run(app, host='192.168.253.1') # define que o app vai rodar no seu servidor local, ou seja, na internet em que o seu computador tá conectado
+socketio.run(app, host='192.168.1.8') # define que o app vai rodar no seu servidor local, ou seja, na internet em que o seu computador tá conectado

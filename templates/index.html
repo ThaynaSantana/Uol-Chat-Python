@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHAT PYTHON</title>
     <!-- BOOTSTRAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js" integrity="sha512-fHY2UiQlipUq0dEabSM4s+phmn+bcxSYzXP4vAXItBvBHU7zAM/mkhCZjtBEIJexhOMzZbgFlPLuErlJF2b+0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- SOCKET.IO-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js" integrity="sha512-Z6C1p1NIexPj5MsVUunW4pg7uMX6/TT3CUVldmjXx2kpip1eZcrAnxIusDxyFIikyM9A61zOVNgvLr/TGudOQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- JQUERY-->
@@ -15,7 +15,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            var socket = io("192.168.253.1:5000")
+            var socket = io("192.168.1.8:5000")
             socket.on("connect", function() {
                 console.log("Conectado");
             });
@@ -31,13 +31,18 @@
         })
     </script>
 
-    <h1>Chat Zap</h1>
-    <div id="lista_mensagens">
-
+    <div class="container mt-5">
+    <h1 class="mb-4"><span class="text-warning"></span>UOL</span> Chat</h1>
+    <div id="lista_mensagens" class="mb-4">
+        <!-- Aqui serão exibidas as mensagens -->
     </div>
-    <input type="text" id="usuario" placeholder="Usuario" required>
-    <input type="text" id="mensagem" placeholder="Mensagem" required>
-    <button class="btn btn-success" id="botao">Enviar</button>
+    <div class="input-group mb-3">
+        <input type="text" id="usuario" class="form-control mb-2" placeholder="Usuário" required>
+        <input type="text" id="mensagem" class="form-control mb-2" placeholder="Mensagem" required>
+        <div class="input-group-append">
+            <button class="btn btn-success" id="botao">Enviar</button>
+        </div>
+    </div>
 
 </body>
 </html>
